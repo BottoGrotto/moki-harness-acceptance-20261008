@@ -1,0 +1,8 @@
+{
+  "name": "moki-harness-acceptance",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,24 @@
+name: CI
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
+
+  injected-transient:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exercise a recoverable first-attempt failure
+        run: |
+          if [ "${{ github.run_attempt }}" = "1" ]; then
+            echo "Injected transient failure for Moki harness recovery acceptance. Rerun this workflow once."
+            exit 1
+          fi
+          echo "Recovery attempt passed."
